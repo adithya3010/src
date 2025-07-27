@@ -20,11 +20,33 @@ export default function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleRegister}>
-      <h2>Register</h2>
-      <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
-      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
-      <button type="submit">Register</button>
-    </form>
+    <div className="container">
+      <form onSubmit={handleRegister} className="animate-fade-in">
+        <h2>Create Your Account</h2>
+        <div className="form-group">
+          <label className="form-label">Email Address</label>
+          <input 
+            type="email" 
+            placeholder="Enter your email" 
+            value={email} 
+            onChange={e => setEmail(e.target.value)} 
+            required 
+          />
+        </div>
+        <div className="form-group">
+          <label className="form-label">Password</label>
+          <input 
+            type="password" 
+            placeholder="Create a strong password" 
+            value={password} 
+            onChange={e => setPassword(e.target.value)} 
+            required 
+          />
+        </div>
+        <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+          Create Account
+        </button>
+      </form>
+    </div>
   );
 }

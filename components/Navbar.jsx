@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import './Navbar.css';
 
 export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
@@ -17,19 +16,29 @@ export default function Navbar() {
 
 
   return (
-    <nav style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem', background: '#eee' }}>
-      <div>
-        <Link to="/">🏠 Home</Link>
+    <nav>
+      <div className="nav-brand">
+        <img 
+          src="/WhatsApp Image 2025-07-27 at 16.50.33_0765f904.jpg" 
+          alt="EV Charging Logo" 
+          className="logo"
+        />
+        <Link to="/">EcoCharge Network</Link>
       </div>
-      <div>
+      <div className="nav-links">
         {user ? (
           <>
-            <span style={{ marginRight: '1rem' }}>Welcome, {user.email}</span>
-            <button onClick={handleLogout}>Logout</button>
+            <span style={{ marginRight: '1rem', color: 'var(--primary-green)', fontWeight: '600' }}>
+              Welcome, {user.email}
+            </span>
+            {user.role === 'admin' && (
+              <Link to="/dashboard">Dashboard</Link>
+            )}
+            <button onClick={handleLogout} className="btn btn-outline">Logout</button>
           </>
         ) : (
           <>
-            <Link to="/login" style={{ marginRight: '1rem' }}>Login</Link>
+            <Link to="/login">Login</Link>
             <Link to="/register">Register</Link>
           </>
         )}

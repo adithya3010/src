@@ -33,23 +33,33 @@ export default function LoginForm({ onSuccess }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        required
-      />
-      <button type="submit">Login</button>
-    </form>
+    <div className="container">
+      <form onSubmit={handleSubmit} className="animate-fade-in">
+        <h2>Sign In to Your Account</h2>
+        <div className="form-group">
+          <label className="form-label">Email Address</label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label className="form-label">Password</label>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+          Sign In
+        </button>
+      </form>
+    </div>
   );
 }

@@ -79,27 +79,36 @@ export default function ChargerList({ chargers }) {
 
   return (
     <>
-      <ul>
+      <ul className="charger-list">
         {chargers.map(charger => (
-          <li key={charger._id}>
-            <strong>{charger.name}</strong> - {charger.type} ({charger.power} kW, Status: {charger.status})<br />
+          <li key={charger._id} className="charger-item">
+            <div className="charger-name">{charger.name}</div>
+            <div className="charger-details">
+              <strong>Type:</strong> {charger.type} | <strong>Power:</strong> {charger.power} kW | 
+              <strong>Status:</strong> <span className={`status-${charger.status.replace(' ', '-')}`}>{charger.status}</span>
+            </div>
 
             {charger.status === 'plugged in' && charger.chargingSession ? (
-              <>
-                Charging Time: {charger.chargingSession.chargingTime} minutes<br />
-                ETA: {new Date(charger.chargingSession.eta).toLocaleString()}<br />
+              <div className="charger-details">
+                <strong>Charging Time:</strong> {charger.chargingSession.chargingTime} minutes<br />
+                <strong>ETA:</strong> {new Date(charger.chargingSession.eta).toLocaleString()}<br />
                 <span
                   className="remaining-countdown"
                   data-eta={new Date(charger.chargingSession.eta).toISOString()}
                   data-charger-id={charger._id}
                 >
                   Remaining: ...
-                </span><br />
-                <button onClick={() => handlePlugOut(charger._id)}>🔌 Plug Out</button>
-              </>
+                </span>
+                <div className="charger-actions">
+                  <button onClick={() => handlePlugOut(charger._id)} className="btn btn-secondary">
+                    🔌 Plug Out
+                  </button>
+                </div>
+              </div>
             ) : (
-              <>
+              <div className="charger-actions">
                 <button
+                  className="btn btn-primary"
                   onClick={() => {
                     if (!user) {
                       alert("Please log in to plug in");
@@ -113,7 +122,7 @@ export default function ChargerList({ chargers }) {
                 </button>
 
                 {showFormId === charger._id && (
-                  <form onSubmit={(e) => handlePlugIn(e, charger._id)} style={{ marginTop: '10px' }}>
+                  <form onSubmit={(e) => handlePlugIn(e, charger._id)} style={{ marginTop: 'var(--space-4)' }}>
                     <input
                       type="number"
                       name="batteryCapacity"
@@ -146,12 +155,11 @@ export default function ChargerList({ chargers }) {
                       onChange={handleInputChange}
                       required
                     />
-                    <button type="submit">Start Charging</button>
+                    <button type="submit" className="btn btn-primary">Start Charging</button>
                   </form>
                 )}
-              </>
+              </div>
             )}
-            <hr />
           </li>
         ))}
       </ul>

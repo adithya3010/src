@@ -24,26 +24,36 @@ export default function AdminChargingStations() {
   );
 
   return (
-    <div>
-      <h2>Charging Stations</h2>
+    <div className="animate-fade-in">
+      <h2>Charging Stations Management</h2>
       
       <input
         type="text"
         placeholder="Search by station name..."
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
-        style={{ padding: '8px', width: '300px', marginBottom: '16px' }}
+        style={{ marginBottom: 'var(--space-4)' }}
       />
 
-      <ul>
+      <ul className="charger-list">
         {filteredStations.map(station => (
-          <li key={station._id}>
-            <strong>{station.name}</strong> 
+          <li key={station._id} className="charger-item">
+            <div className="charger-name">{station.name}</div>
+            <div className="charger-details">
+              <strong>Energy Source:</strong> 
+              <span className={station.sourceType === 'renewable' ? 'text-success' : 'text-warning'}>
+                {station.sourceType === 'renewable' ? '🌱 Renewable' : '⚡ Non-Renewable'}
+              </span>
+            </div>
           </li>
         ))}
       </ul>
 
-      {filteredStations.length === 0 && <p>No stations found.</p>}
+      {filteredStations.length === 0 && (
+        <div className="text-center" style={{ padding: 'var(--space-8)' }}>
+          <p style={{ color: 'var(--neutral-500)' }}>No stations found matching your search.</p>
+        </div>
+      )}
     </div>
   );
 }

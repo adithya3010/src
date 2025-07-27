@@ -51,16 +51,26 @@ export default function LocationPage() {
   if (!location) return <div>Loading...</div>;
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-      <h1>{location.name}</h1>
+    <div className="location-container animate-fade-in">
+      <div className="location-header">
+        <h1>{location.name}</h1>
+        <p className="page-subtitle">Charging station details and availability</p>
+      </div>
 
-      <StatusSummary statusCounts={statusCounts} />
-      <GoogleMap latitude={location.latitude} longitude={location.longitude} />
+      <div className="location-content">
+        <div className="location-info">
+          <StatusSummary statusCounts={statusCounts} />
+          <h2>Available Chargers</h2>
+          <ChargerList chargers={chargers} />
+        </div>
+        <div className="location-map">
+          <GoogleMap latitude={location.latitude} longitude={location.longitude} />
+        </div>
+      </div>
 
-      <h2>Available Chargers</h2>
-      <ChargerList chargers={chargers} />
-
-      <AddChargerForm locationId={id} />
+      <div className="card">
+        <AddChargerForm locationId={id} />
+      </div>
     </div>
   );
 }
